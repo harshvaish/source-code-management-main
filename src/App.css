@@ -1,0 +1,146 @@
+/* Center card styles */
+.login-page-container {
+  height: 100vh;
+  display: flex;
+
+}
+
+.image-section {
+  background-color: #0a3364;
+  width: 70%;
+  background: "url('https://app.harness.io/auth/assets/saas-bg.04124b29.png') repeat";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: white;
+  text-align: left;
+}
+
+/* Logo container */
+.logo-container {
+  text-align: center;
+}
+
+.logo {
+  width: 150px;
+}
+
+/* Link styles */
+.text-link {
+  color: #0278d5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* Form input styling */
+.form-control {
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 10px;
+  box-shadow: none; /* Ensure no box-shadow by default */
+
+}
+/* Remove default box-shadow and set the focus border color to black */
+.form-control:focus {
+  border-color: black; /* Focused border color */
+  box-shadow: none; /* Remove the default focus box-shadow */
+}
+
+
+.form-label {
+  font-size: 15px;
+}
+/* Styling for the OR section */
+.d-flex {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+hr {
+  border: 1px solid #000;
+  flex: 1;
+}
+
+span {
+  margin: 0 10px;
+  font-weight: bold;
+  color: #666;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f5;
+}
+.sidebar-btn button:hover{
+  background-color: #1b2e49 !important;
+}
+
+.sidebar-btn button{
+background-color:rgb(10 51 100) !important;
+}
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.sidenav {
+  flex: 0 0 250px;
+  background-color: #f4f4f4;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+
+.source-container {
+  padding: 20px;
+}
+
+.row-count {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.table-header,
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+
+.table-header {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.table-row {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-row .status-active {
+  color: green;
+  font-weight: bold;
+}
+
+.table-row .status-inactive {
+  color: red;
+  font-weight: bold;
+}
+
+
