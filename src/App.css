@@ -2,7 +2,6 @@
 .login-page-container {
   height: 100vh;
   display: flex;
-
 }
 
 .image-section {
@@ -45,14 +44,12 @@
   font-size: 14px;
   padding: 10px;
   box-shadow: none; /* Ensure no box-shadow by default */
-
 }
 /* Remove default box-shadow and set the focus border color to black */
 .form-control:focus {
   border-color: black; /* Focused border color */
   box-shadow: none; /* Remove the default focus box-shadow */
 }
-
 
 .form-label {
   font-size: 15px;
@@ -61,8 +58,8 @@
 .d-flex {
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /* margin-top: 20px; */
+  /* margin-bottom: 20px; */
 }
 
 hr {
@@ -80,12 +77,12 @@ span {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f2f2f5;
 }
-.sidebar-btn button:hover{
+.sidebar-btn button:hover {
   background-color: #1b2e49 !important;
 }
 
-.sidebar-btn button{
-background-color:rgb(10 51 100) !important;
+.sidebar-btn button {
+  background-color: rgb(10 51 100) !important;
 }
 .dashboard-container {
   display: flex;
@@ -102,7 +99,6 @@ background-color:rgb(10 51 100) !important;
   flex: 1;
   padding: 20px;
 }
-
 
 .source-container {
   padding: 20px;
@@ -142,5 +138,173 @@ background-color:rgb(10 51 100) !important;
   color: red;
   font-weight: bold;
 }
+/* 
+.slide-modal {
+  position: fixed;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease-in-out;
+}
 
+.slide-modal.show {
+  left: 0;
+} */
 
+/* .open{
+  background-color: red;
+} */
+
+.hover-block {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.user-block:hover .hover-block {
+  opacity: 1;
+  transform: translateX(0);
+}
+.platform-card {
+  transition: background-color 0.3s ease;
+}
+
+.platform-card:hover {
+  background-color: #f0f0f0; /* Change to desired hover color */
+}
+/* Adjust card size */
+.small-card {
+  width: 150px; /* Decrease width of the card */
+  height: 150px; /* Optionally adjust height if needed */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for box shadow on hover */
+}
+
+.m-card-body {
+  padding: 5px; /* Reduce padding inside the card */
+}
+
+/* Reduce icon size */
+.small-card .drag-item-icon {
+  font-size: 24px; /* Adjust this value to reduce the icon size */
+  max-width: 50px; /* Optional: Set max-width for better scaling */
+  max-height: 50px; /* Optional: Set max-height for better scaling */
+}
+
+/* sidenavigation alert css */
+
+.w-250 {
+  width: 250px;
+}
+
+.platform-card:hover .msg-popover {
+  /* visibility: visible; */
+  /* transform: translateY(0px); */
+  opacity: 1;
+}
+
+span.msg-popover {
+  width: 150px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+  bottom: 100%;
+  /* left: calc(50% - 38px); */
+  transition: all 0.5s ease;
+  /* transform: translateY(-10px); */
+  opacity: 0;
+  margin-inline: 0;
+  z-index: 9;
+  margin-bottom: 11px;
+  /* visibility: hidden; */
+}
+
+span.msg-popover::before {
+  content: "";
+  position: absolute;
+  top: 90%;
+  width: 10px;
+  height: 10px;
+  background: rgb(51 51 51);
+  left: calc(50% - 10px);
+  transform: rotate(45deg);
+  z-index: 9;
+}
+
+.side-nav-left {
+  width: 785px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  /* position: absolute; */
+  top: 0;
+  /* left: -100; */
+  bottom: 0;
+  height: 100%;
+  z-index: 99999999;
+  /* transition: left .5s ease; */
+  background: #fff;
+}
+
+.nav + .side-nav-left.active {
+  left: -100;
+}
+
+.hover-block.caret-left::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  left: -5px;
+  transform: rotate(45deg);
+  top: 50%;
+}
+
+.sourcecode-popup {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.8s;
+
+  background: rgb(255, 255, 255);
+  z-index: 1000;
+  display: flex;
+  /* max-width:630px; */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.c-dialog .modal-dialog {
+  max-width: 700px;
+}

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import HelpModal from "../modal/HelpModal";
-import SourceCodeModal from "../modal/SourceCodeModal";
-
 
 const SourceSideNav = () => {
-    const [activeModal, setActiveModal] = useState(null);
   const [activeIndex, setActiveIndex] = useState(null); // Tracks the selected nav
-
-  const handleModalClose = () => setActiveModal(null);
-
   const navItems = [
     { name: "Show All", modal: "sourceCode" },
     { name: "Cloud Providers", modal: "help" },
@@ -32,24 +25,12 @@ const SourceSideNav = () => {
             onMouseOut={(e) => {
               if (activeIndex !== index) e.target.style.backgroundColor = "#0a3364";
             }}
-            onClick={() => {
-              setActiveModal(item.modal);
-              setActiveIndex(index);
-            }}
           >
             {item.name}
           </button>
         ))}
       </nav>
 
-
-
-      {/* Modals */}
-      <HelpModal show={activeModal === "help"} onClose={handleModalClose} />
-      <SourceCodeModal
-        show={activeModal === "sourceCode"}
-        onClose={handleModalClose}
-      />
     </div>
   );
 };
