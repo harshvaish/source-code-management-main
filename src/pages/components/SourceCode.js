@@ -4,11 +4,12 @@ import DropArea from "./DropArea";
 import { useModal } from "../../context/ModalContext";
 import RepoTable from "./RepoTable"
 
-const SourceCode = () => {
+const   SourceCode = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
+  const localRepoData = JSON.parse(localStorage.getItem("repoData"));
 
-  const [repoData, setRepoData] = useState([]);
+  const [repoData, setRepoData] = useState(localRepoData || []);
   const { activeModal, openModal, closeModal } = useModal();
 
   const [modalData, setModalData] = useState(null);
@@ -19,6 +20,7 @@ const SourceCode = () => {
     const currentRepoData = [...repoData];
     currentRepoData.push(data);
     setRepoData(currentRepoData);
+    localStorage.setItem('repoData', JSON.stringify(currentRepoData))
     setShowData(true);
   }
 
@@ -82,7 +84,7 @@ const SourceCode = () => {
         .then((data) => {
           // setData(data.userData); // Update state with user data from response
           setFinalData(data)
-          localStorage.setItem("repoDetails", `${data}` );
+          localStorage.setItem("repoDetails", JSON.stringify(data) );
           setLoading(false); // Set loading to false when done fetching
           setShowData(true);
         });
@@ -107,12 +109,7 @@ const SourceCode = () => {
   }
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        marginTop: "-300px",
-      }}
-    >
+    <div>
       {/* DropArea */}
       <DropArea onDrop={handleDrop} />
 
@@ -121,6 +118,7 @@ const SourceCode = () => {
           {/* Table count */}
           <div
             style={{
+              marginTop: "20px",
               marginBottom: "20px",
               fontSize: "18px",
               fontWeight: "bold",
@@ -135,6 +133,7 @@ const SourceCode = () => {
               display: "grid",
               gridTemplateColumns: "1fr", // Single column layout
               gap: "20px",
+              marginBottom: '20px'
             }}
           >
             {/* Header */}

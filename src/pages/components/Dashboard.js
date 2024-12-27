@@ -37,22 +37,8 @@ const Dashboard = () => {
       {/* Main Content */}
       <div
         className="main-content"
-        style={{ flex: 1, padding: "20px", position: "relative" }}
         ref={drop}
       >
-        {isOver && (
-          <div
-            style={{
-              backgroundColor: "rgba(0, 255, 0, 0.2)",
-              height: "100%",
-              width: "100%",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              zIndex: 1,
-            }}
-          />
-        )}
         {activeContent === "sourceCode" && <SourceCode/>}
         {activeContent === "help" && <div>Help Content Goes Here</div>}
       </div>
