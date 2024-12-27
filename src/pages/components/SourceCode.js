@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ConfigureModal from "../modal/ConfigureModal";
 import DropArea from "./DropArea";
 import { useModal } from "../../context/ModalContext";
+import RepoTable from "./RepoTable"
 
-const SourceCode = ({ tableData }) => {
+const SourceCode = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
+
+  const [repoData, setRepoData] = useState([]);
   const { activeModal, openModal, closeModal } = useModal();
 
   const [modalData, setModalData] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showData, setShowData] = useState(false);
+
+  const modifyRepoData = (data) => {
+    const currentRepoData = [...repoData];
+    currentRepoData.push(data);
+    setRepoData(currentRepoData);
+    setShowData(true);
+  }
 
   const handleDrop = (item) => {
     setModalData(item);
@@ -19,6 +32,79 @@ const SourceCode = ({ tableData }) => {
     closeModal();
     setModalData(null);
   };
+
+  const [finalData, setFinalData] = useState(null);
+  // State to store the retrieved user data
+  const [data, setData] = useState(null);
+  // State to indicate if data is being fetched
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoading(true); // Set loading to true while fetching data
+      fetch("https://api.github.com/user", {
+        headers: { Authorization: token },
+      })
+        .then((res) => res.json()) // Parse the response as JSON
+        .then((data) => {
+          setData(data); // Update state with fetched user data
+          setLoading(false); // Set loading to false when done fetching
+        }).catch((e)=> setData(null));
+    } else if (code) {
+      // If no token but 'code' is available (GitHub OAuth flow)
+      setLoading(true); // Set loading to true while fetching data
+      fetch(
+        `http://localhost:3001/oauth/redirect?code=${code}&state=YOUR_RANDOMLY_GENERATED_STATE`
+      )
+        .then((res) => res.json()) // Parse the response as JSON
+        .then((data) => {
+          setData(data.userData); // Update state with user data from response
+          localStorage.setItem(
+            "token",
+            `${data.tokenType} ${data.token}`
+          ); // Store access token in local storage
+          setLoading(false); // Set loading to false when done fetching
+        });
+    }
+  }, [code, selectedUser]);
+
+  useEffect(()=> {
+    if (data) {
+      console.log('Jay data', data)
+      // If no token but 'code' is available (GitHub OAuth flow)
+      setLoading(true); // Set loading to true while fetching data
+      const token = localStorage.getItem("token")
+      fetch(
+        `http://localhost:3001/api/repos?user=${data?.login}&token=${token}`
+      )
+        .then((res) => res.json()) // Parse the response as JSON
+        .then((data) => {
+          // setData(data.userData); // Update state with user data from response
+          setFinalData(data)
+          localStorage.setItem("repoDetails", `${data}` );
+          setLoading(false); // Set loading to false when done fetching
+          setShowData(true);
+        });
+    }
+  }, [data]);
+
+  const redirectToGitHub = (event) => {
+    console.log('jay', event)
+    const client_id = "Ov23li5Jw5KcbfCU0rXB";
+    const redirect_uri = "http://localhost:3000/dashboard";
+    const scope = "read:user";
+    const userName = event?.target?.textContent.replace('https://github.com/', '')
+    setSelectedUser(userName)
+ 
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}`;
+ 
+    window.open(authUrl, "_top")
+  }
+
+  if (loading) {
+    return <h4>Loading...</h4>;
+  }
 
   return (
     <div
@@ -40,7 +126,7 @@ const SourceCode = ({ tableData }) => {
               fontWeight: "bold",
             }}
           >
-            Total: {tableData.length}
+            Total: {repoData.length}
           </div>
 
           {/* Table structure */}
@@ -68,7 +154,7 @@ const SourceCode = ({ tableData }) => {
             </div>
 
             {/* Rows */}
-            {tableData.map((row, index) => (
+            {repoData.map((row, index) => (
               <div
                 key={index}
                 style={{
@@ -87,7 +173,7 @@ const SourceCode = ({ tableData }) => {
                 {/* Clickable Details */}
                 <span
                   style={{ flex: 2, color: "#555", cursor: "pointer" }}
-                  onClick={() => window.open(row.details, "_blank")} // Open URL in new tab
+                  onClick={redirectToGitHub} // Open URL in new tab
                 >
                   {row.details}
                 </span>
@@ -106,12 +192,13 @@ const SourceCode = ({ tableData }) => {
         </>
       )}
 
+      {finalData && <RepoTable tableData={finalData}></RepoTable>}
       {/* ConfigureModal */}
       {activeModal === "ConfigureModal" && (
         <ConfigureModal
           show={true}
           showData={showData}
-          setShowData={setShowData}
+          modifyRepoData={modifyRepoData}
           item={modalData}
           onClose={closeConfigureModal}
         />

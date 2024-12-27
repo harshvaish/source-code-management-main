@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-const ConfigureModal = ({ show, item, onClose, setShowData }) => {
+const ConfigureModal = ({ show, item, onClose, modifyRepoData }) => {
   const [step, setStep] = useState(1);
   const [category, setCategory] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
@@ -10,8 +10,13 @@ const ConfigureModal = ({ show, item, onClose, setShowData }) => {
     if (step < 3) setStep(step + 1);
   };
   const handleSubmit = () => {
+
     onClose();
-    setShowData(true);
+    modifyRepoData({
+      source: item?.name,
+      details: githubUrl,
+      status: 'Success'
+    });
   };
   const isStepComplete = (currentStep) => currentStep < step;
   return (

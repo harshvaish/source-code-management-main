@@ -53,7 +53,7 @@ const Dashboard = () => {
             }}
           />
         )}
-        {activeContent === "sourceCode" && <SourceCode tableData={tableData} />}
+        {activeContent === "sourceCode" && <SourceCode/>}
         {activeContent === "help" && <div>Help Content Goes Here</div>}
       </div>
     </div>
